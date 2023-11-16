@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://c8htcrx2djl68"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_u828m"]
+[ext_resource type="PackedScene" uid="uid://7thypxftr2e1" path="res://player.tscn" id="2_2x4fh"]
+[ext_resource type="PackedScene" uid="uid://b0pjrcwehwmxs" path="res://muro.tscn" id="2_hrcdj"]
+[ext_resource type="PackedScene" uid="uid://8e65ep6k6qh0" path="res://ball.tscn" id="3_63h47"]
+[ext_resource type="FontFile" uid="uid://dbyk413mvomt4" path="res://fonts/Xolonium-Regular.ttf" id="5_ixwmm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8qkm"]
+size = Vector2(20, 644)
+
+[sub_resource type="Theme" id="Theme_j1vbw"]
+default_font = ExtResource("5_ixwmm")
+
+[sub_resource type="Theme" id="Theme_1jxso"]
+default_font = ExtResource("5_ixwmm")
+
+[node name="Main" type="Node"]
+script = ExtResource("1_u828m")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(571, 0, 571, 648)
+width = 5.0
+
+[node name="muros" type="Node2D" parent="."]
+position = Vector2(566, -12)
+
+[node name="muro" parent="muros" instance=ExtResource("2_hrcdj")]
+position = Vector2(0, 3)
+
+[node name="muro2" parent="muros" instance=ExtResource("2_hrcdj")]
+position = Vector2(7, 669)
+
+[node name="GoalP2" type="Area2D" parent="muros"]
+position = Vector2(-589, 349)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="muros/GoalP2"]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_w8qkm")
+
+[node name="GoalP1" type="Area2D" parent="muros"]
+position = Vector2(608, 349)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="muros/GoalP1"]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_w8qkm")
+
+[node name="Player" parent="." instance=ExtResource("2_2x4fh")]
+position = Vector2(20, 342)
+
+[node name="Player2" parent="." instance=ExtResource("2_2x4fh")]
+position = Vector2(1130, 342)
+
+[node name="Ball" parent="." instance=ExtResource("3_63h47")]
+position = Vector2(570, 342)
+max_contacts_reported = 4
+contact_monitor = true
+
+[node name="ScoreP1" type="Label" parent="."]
+offset_left = 462.0
+offset_top = 33.0
+offset_right = 573.0
+offset_bottom = 146.0
+theme = SubResource("Theme_j1vbw")
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreP2" type="Label" parent="."]
+offset_left = 575.0
+offset_top = 34.0
+offset_right = 670.0
+offset_bottom = 147.0
+theme = SubResource("Theme_1jxso")
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerSpeedBall" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_entered" from="muros/GoalP2" to="." method="_on_goal_p_2_body_entered"]
+[connection signal="body_entered" from="muros/GoalP1" to="." method="_on_goal_p_1_body_entered"]
+[connection signal="body_entered" from="Ball" to="." method="_on_ball_body_entered"]
+[connection signal="timeout" from="TimerSpeedBall" to="." method="_on_timer_speed_ball_timeout"]

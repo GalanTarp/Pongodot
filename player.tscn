@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://7thypxftr2e1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ppt13"]
+radius = 8.0
+height = 134.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_0c2hi"]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ppt13")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CollisionShape2D"]
+position = Vector2(7.10543e-15, 0)
+scale = Vector2(14.925, 130)
+mesh = SubResource("BoxMesh_0c2hi")
