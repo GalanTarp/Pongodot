@@ -1,10 +1,15 @@
 extends Node
 
-const speed = 50
-const friction = speed/4
+const SPEED = 50
+const FRICTION = SPEED/4
 const xP1 = 20
 const xP2 = 1130
+const MAX_GOALS = 3
 var reset := false
+
+
+func _process(delta):
+	Global.move_background(delta, $TextureRect)
 
 
 
@@ -14,20 +19,20 @@ func _physics_process(delta):
 	var moveP1 = false
 	var moveP2 = false
 	if Input.is_action_pressed("upP1"):
-		if(velocityP1 > -speed*10):
-			$Player.velocity.y -= speed
+		if(velocityP1 > -SPEED*10):
+			$Player.velocity.y -= SPEED
 			moveP1 = true
 	if Input.is_action_pressed("downP1"):
-		if(velocityP1 < speed*10):
-			$Player.velocity.y += speed
+		if(velocityP1 < SPEED*10):
+			$Player.velocity.y += SPEED
 			moveP1 = true
 	if Input.is_action_pressed("upP2"):
-		if(velocityP2 > -speed*10):
-			$Player2.velocity.y -= speed
+		if(velocityP2 > -SPEED*10):
+			$Player2.velocity.y -= SPEED
 			moveP2 = true
 	if Input.is_action_pressed("downP2"):
-		if(velocityP2 < speed*10):
-			$Player2.velocity.y += speed
+		if(velocityP2 < SPEED*10):
+			$Player2.velocity.y += SPEED
 			moveP2 = true
 	
 	#Reset velocity in x
@@ -41,9 +46,9 @@ func _physics_process(delta):
 	
 	#Create friction when its not pressed
 	if(velocityP1 != 0):
-		$Player.velocity.y += friction if velocityP1 < 0 else -friction
+		$Player.velocity.y += FRICTION if velocityP1 < 0 else -FRICTION
 	if(velocityP2 != 0):
-		$Player2.velocity.y += friction if velocityP2 < 0 else -friction
+		$Player2.velocity.y += FRICTION if velocityP2 < 0 else -FRICTION
 	
 	$Player.move_and_slide()
 	$Player2.move_and_slide()
@@ -57,21 +62,41 @@ func _on_ball_body_entered(body):
 
 
 func _on_goal_p_2_body_entered(body):
-	print(Global.ScoreP2)
-#	$Ball.set_global_pos(_initial_pos)
-	$Ball.reset = true
 	Global.ScoreP2 += 1
 	$ScoreP2.text = str(Global.ScoreP2)
 
+	$GOAL.visible = true
+	await get_tree().create_timer(2.0).timeout
+
+	if(Global.ScoreP2 < MAX_GOALS):
+		$Ball.reset = true
+		Global.velocity = Global.VELOCITY_BASE
+		$GOAL.visible = false
+	else:
+		$GOAL.text = "PLAYER 2 WIN"
+		$NewGameButton.visible = true
+
 
 func _on_goal_p_1_body_entered(body):
-	print("gooal")
-#	$Ball.set_global_pos(_initial_pos)
-#	$Ball.position = _initial_pos
-	$Ball.reset = true
 	Global.ScoreP1 += 1
 	$ScoreP1.text = str(Global.ScoreP1)
+
+	$GOAL.visible = true
+	await get_tree().create_timer(2.0).timeout
+
+	if(Global.ScoreP1 < MAX_GOALS):
+		$Ball.reset = true
+		Global.velocity = Global.VELOCITY_BASE
+		$GOAL.visible = false
+	else:
+		$GOAL.text = "PLAYER 1 WIN"
+		$NewGameButton.visible = true
 
 
 func _on_timer_speed_ball_timeout():
 	$Ball._speed += $Ball.speedBallIncrease
+	Global.velocity += 1
+
+
+func _on_new_game_button_pressed():
+	get_tree().reload_current_scene()

@@ -1,10 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8htcrx2djl68"]
+[gd_scene load_steps=12 format=3 uid="uid://c8htcrx2djl68"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_u828m"]
 [ext_resource type="PackedScene" uid="uid://7thypxftr2e1" path="res://player.tscn" id="2_2x4fh"]
 [ext_resource type="PackedScene" uid="uid://b0pjrcwehwmxs" path="res://muro.tscn" id="2_hrcdj"]
 [ext_resource type="PackedScene" uid="uid://8e65ep6k6qh0" path="res://ball.tscn" id="3_63h47"]
 [ext_resource type="FontFile" uid="uid://dbyk413mvomt4" path="res://fonts/Xolonium-Regular.ttf" id="5_ixwmm"]
+[ext_resource type="Texture2D" uid="uid://5t1xnsq0xy0n" path="res://sprites/UI/New game Button.png" id="6_xhrfm"]
+
+[sub_resource type="Gradient" id="Gradient_trx5t"]
+offsets = PackedFloat32Array(0, 0.485455, 0.758065)
+colors = PackedColorArray(0.192556, 0.192556, 0.192556, 1, 3.36915e-07, 0, 0.559719, 1, 0.0768358, 0.0768358, 0.0768358, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7pp2t"]
+gradient = SubResource("Gradient_trx5t")
+fill_from = Vector2(0, 1)
+metadata/_snap_enabled = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8qkm"]
 size = Vector2(20, 644)
@@ -13,7 +23,9 @@ size = Vector2(20, 644)
 default_font = ExtResource("5_ixwmm")
 
 [sub_resource type="Theme" id="Theme_1jxso"]
+resource_local_to_scene = true
 default_font = ExtResource("5_ixwmm")
+default_font_size = 80
 
 [node name="Main" type="Node"]
 script = ExtResource("1_u828m")
@@ -25,6 +37,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_7pp2t")
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(571, 0, 571, 648)
@@ -70,6 +90,8 @@ offset_top = 33.0
 offset_right = 573.0
 offset_bottom = 146.0
 theme = SubResource("Theme_j1vbw")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 80
 text = "0"
 horizontal_alignment = 1
@@ -81,16 +103,46 @@ offset_top = 34.0
 offset_right = 670.0
 offset_bottom = 147.0
 theme = SubResource("Theme_1jxso")
-theme_override_font_sizes/font_size = 80
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GOAL" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = -38.0
+offset_right = 126.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 40
+theme_override_fonts/font = ExtResource("5_ixwmm")
+theme_override_font_sizes/font_size = 60
+text = "GOOAL!"
 
 [node name="TimerSpeedBall" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 
+[node name="NewGameButton" type="TextureButton" parent="."]
+visible = false
+offset_left = 488.0
+offset_top = 427.0
+offset_right = 1088.0
+offset_bottom = 627.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("6_xhrfm")
+
 [connection signal="body_entered" from="muros/GoalP2" to="." method="_on_goal_p_2_body_entered"]
 [connection signal="body_entered" from="muros/GoalP1" to="." method="_on_goal_p_1_body_entered"]
 [connection signal="body_entered" from="Ball" to="." method="_on_ball_body_entered"]
 [connection signal="timeout" from="TimerSpeedBall" to="." method="_on_timer_speed_ball_timeout"]
+[connection signal="pressed" from="NewGameButton" to="." method="_on_new_game_button_pressed"]
