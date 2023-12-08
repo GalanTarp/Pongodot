@@ -4,6 +4,8 @@ var ScoreP1 = 0
 var ScoreP2 = 0
 
 
+# Movement of the background
+
 var x = 0; var y = 0
 var bandera = 1; 
 var axis = true; # true = eje X; false = eje Y 
