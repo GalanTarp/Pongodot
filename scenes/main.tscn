@@ -117,6 +117,19 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ScoreCop" type="Label" parent="."]
+visible = false
+offset_left = 523.0
+offset_top = 35.0
+offset_right = 618.0
+offset_bottom = 148.0
+theme = SubResource("Theme_1jxso")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="GOAL" type="Label" parent="."]
 visible = false
 anchors_preset = 8
@@ -140,7 +153,16 @@ text = "GOOAL!"
 wait_time = 5.0
 autostart = true
 
-[node name="NewGameButton" type="TextureButton" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 496.0
+offset_top = 18.0
+offset_right = 646.0
+offset_bottom = 33.0
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[node name="NewGameButton" type="TextureButton" parent="." groups=["boton"]]
 visible = false
 offset_left = 488.0
 offset_top = 427.0
@@ -151,7 +173,7 @@ texture_normal = ExtResource("6_c4hg4")
 texture_pressed = ExtResource("7_ryfar")
 texture_hover = ExtResource("7_vt3cj")
 
-[node name="PauseButton" type="TextureButton" parent="."]
+[node name="PauseButton" type="TextureButton" parent="." groups=["boton"]]
 offset_left = 544.0
 offset_top = 576.0
 offset_right = 744.0

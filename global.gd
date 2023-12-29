@@ -2,6 +2,9 @@ extends Node
 
 var ScoreP1 = 0
 var ScoreP2 = 0
+var Cooperative = false
+var ScoreCop = 0
+var max_goals = 3
 
 
 # Movement of the background

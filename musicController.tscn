@@ -1,8 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbk5avajvd3nu"]
+[gd_scene load_steps=4 format=3 uid="uid://bbk5avajvd3nu"]
 
 [ext_resource type="Script" path="res://MusicController.gd" id="1_wgl3k"]
+[ext_resource type="AudioStream" uid="uid://q7pjjkhlw4qv" path="res://assets/audio/click1.ogg" id="2_pdg1j"]
+[ext_resource type="AudioStream" uid="uid://slwwmv13ej1t" path="res://assets/audio/mouserelease1.ogg" id="3_yotxp"]
 
 [node name="MusicController" type="Node"]
 script = ExtResource("1_wgl3k")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_pdg1j")
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yotxp")

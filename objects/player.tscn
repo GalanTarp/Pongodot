@@ -15,3 +15,17 @@ shape = SubResource("CapsuleShape2D_ppt13")
 position = Vector2(7.10543e-15, -7.80821e-06)
 scale = Vector2(14.925, 126)
 mesh = SubResource("BoxMesh_3sk5x")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(8, 0)
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.49
+randomness = 0.4
+spread = 81.82
+gravity = Vector2(400, 0)
+initial_velocity_max = 231.31
+scale_amount_min = 0.0
+scale_amount_max = 4.0

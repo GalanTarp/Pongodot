@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://cocp8xo372acm"]
+
+[ext_resource type="Theme" uid="uid://b0qka3g3xxcs5" path="res://assets/fonts/font_Theme.tres" id="1_ilx8a"]
+[ext_resource type="Script" path="res://scenes/mode_game.gd" id="1_qhjg8"]
+
+[sub_resource type="Gradient" id="Gradient_gwnnl"]
+offsets = PackedFloat32Array(0, 0.485455, 0.758065)
+colors = PackedColorArray(0.192556, 0.192556, 0.192556, 1, 3.36915e-07, 0, 0.559719, 1, 0.0768358, 0.0768358, 0.0768358, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0eahh"]
+gradient = SubResource("Gradient_gwnnl")
+fill_from = Vector2(0, 1)
+metadata/_snap_enabled = true
+
+[node name="ModeGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qhjg8")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_0eahh")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 195.0
+offset_top = 56.0
+offset_right = 947.0
+offset_bottom = 156.0
+theme = ExtResource("1_ilx8a")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 50
+theme_override_font_sizes/font_size = 60
+text = "SELECT MODE"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 143.0
+offset_right = 475.0
+offset_bottom = 488.0
+text = "1 VS 1"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 659.0
+offset_top = 140.0
+offset_right = 1021.0
+offset_bottom = 603.0
+text = "Cooperative"
+
+[node name="Lives" type="Label" parent="."]
+offset_left = 136.0
+offset_top = 502.0
+offset_right = 491.0
+offset_bottom = 566.0
+theme = ExtResource("1_ilx8a")
+theme_override_font_sizes/font_size = 40
+text = "MAX GOALS: 3"
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 587.0
+offset_right = 476.0
+offset_bottom = 603.0
+min_value = 1.0
+max_value = 10.0
+value = 3.0
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="Button2" to="." method="_on_button_2_mouse_entered"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

@@ -16,7 +16,7 @@ func _ready():
 	linear_velocity.x  = _speed * direction
 	linear_velocity.y  = _speed * randf_range(0, 0.2)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if (pause):
 		if(linear_velocity.x != 0):
 			velocityY = linear_velocity.y 
